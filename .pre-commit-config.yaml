@@ -1,0 +1,26 @@
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 21.12b0  # Update to the newest version
+    hooks:
+      - id: black
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 4.0.1  # Update to the newest version
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.9.3  # Update to the newest version
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/python/mypy
+    rev: 0.910  # Replace with the desired version
+    hooks:
+      - id: mypy
+
+  - repo: https://github.com/econchick/interrogate
+    rev: 1.5.0  # Update to the newest version
+    hooks:
+      - id: interrogate
+        args: [-vv, -i, --fail-under=80]
