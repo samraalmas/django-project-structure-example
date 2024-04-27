@@ -1,4 +1,4 @@
 from .common import *
 
-DEBUG=False
+DEBUG = False
 ALLOWED_HOSTS = ["*"]

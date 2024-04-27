@@ -9,10 +9,14 @@ from deployment.settings import common
 def main():
     """Run administrative tasks."""
     if common.DEBUG:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'deployment.settings.development')
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "deployment.settings.development"
+        )
     else:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'deployment.settings.production')
-        
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "deployment.settings.production"
+        )
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -24,5 +28,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
