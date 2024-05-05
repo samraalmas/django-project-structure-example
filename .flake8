@@ -1,2 +1,4 @@
 [flake8]
-max-line-length = 80
+max-line-length = 90
+per-file-ignores =
+  main.py: F401
