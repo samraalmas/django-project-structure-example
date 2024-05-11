@@ -15,20 +15,26 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    #for websockets use channels[daphne]
+    "daphne",
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
     # in-house apps
     "authentication",
+    "channels_with_celery",
+
     # third party
     "rest_framework",
 ]
@@ -61,7 +67,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "deployment.wsgi.application"
+# WSGI_APPLICATION = "deployment.wsgi.application"
+ASGI_APPLICATION = "deployment.asgi.application"
 
 
 # Database
@@ -115,3 +122,28 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# Celery configuration
+# CELERY_BEAT_SCHEDULE = {
+#     'run-long-task-every-minute': {
+#         'task': 'channels_with_celery.tasks.long_running_task',
+#         'schedule': 60.0,  # Run every 1 minute
+#     },
+# }
+
+
+
+
+# Configure channel layer
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
